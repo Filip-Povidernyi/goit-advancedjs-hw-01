@@ -27,3 +27,46 @@ const lightBox = new SimpleLightbox('.gallery a',
         captionPosition: 'bottom',
         captionDelay: 250
     });
+let isSuccess;
+const onClick = () => {
+    const timerId = setTimeout(() => {
+        console.log("I love async JS!");
+        return isSuccess = true;
+    }, 2000);
+    console.log(timerId);
+};
+
+galleryList.addEventListener("click", onClick);
+
+const fetchUserFromServer = username => {
+    return new Promise((resolve, reject) => {
+        console.log(`Fetching data for ${username}`);
+
+        setTimeout(() => {
+            // Change value of isSuccess variable to simulate request status
+
+
+            if (isSuccess) {
+                resolve('ok');
+            } else {
+                reject("Oops");
+            }
+        }, 2000);
+    });
+};
+
+fetchUserFromServer("Mango")
+    .then(user => console.log(user))
+    .catch(onClick);
+
+const makeGreeting = (guestName) => {
+    if (guestName === "" || guestName === undefined) {
+        return Promise.reject("Guest name must not be empty");
+    }
+
+    return Promise.resolve(`Welcome ${guestName}`);
+};
+
+makeGreeting("Mango")
+    .then(greeting => console.log(greeting))
+    .catch(error => console.error(error));
